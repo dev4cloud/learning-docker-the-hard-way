@@ -1,2 +1,7 @@
-# docker-the-hard-way
-Want to learn Docker? Check this out!
+# Docker - The hard way
+
+## Outline
+
+ - [About Docker and container technology](docs/01-about.md)
+ - Installing Docker
+ - "Hello Docker"
