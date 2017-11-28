@@ -17,7 +17,7 @@ While hardware virtualization is a perfectly valid and still widely spread appro
 
  - Provisioning VMs is slow and elaborate. They are many tools like [Vagrant](https://www.vagrantup.com/) or [Ansible](https://www.ansible.com/) which help creating and configuring VMs in a highly automated fashion. Nevertheless, preparing a VM still requires at best several minutes until it is booted, configured and ready for use.  
 
- - VMs are heavyweight and introduce lots of overhead since each host OS comes with its own kernel. When placing multiple VMs on a single host machines, a large portion of the resources (physical/virtual CPUs, RAM, disk space, network bandwidth) is occupied by the OSes themselves and cannot be used for productive workload.
+ - VMs are heavyweight and introduce lots of overhead since each host OS comes with its own kernel. When placing multiple VMs on a single host machines, a large portion of the resources (physical/virtual CPUs, RAM, disk space, network bandwidth) is occupied by the OSes themselves plus the hypervisor and cannot be used for productive workload.
 
 
 This brings us to the question if a certain degree of process isolation can alternatively be achieved without having to cope with such an overhead in terms of time, efforts and hardware resources.<br/>
