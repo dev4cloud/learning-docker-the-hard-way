@@ -50,7 +50,7 @@ But what is Docker then? At it's core, Docker came along with two basic features
  - __Reusable images:__ In Docker, containers are created from so-called _images_. An image is a read-only template that contains a rootfs usually hosting an application along with its dependencies. Docker images enable developers to create and share container templates by making them publicly available in image repositories.   
 
 
-Basically, Docker is made up of three parts (see figure 1):
+Basically, Docker is made up of three parts (see figure below):
 
   1. __Docker client:__ The Docker client offers a command-line interface for talking to the Docker daemon via HTTP.
 
@@ -58,18 +58,12 @@ Basically, Docker is made up of three parts (see figure 1):
 
   3. __Docker Hub:__ Docker Hub is a publicly accessible repository where Docker images can be published and shared with other users.
 
-
 <br/>
 <div align="center">
-  <table class="image" style="width: 75%; height: 75%">
-    <caption align="bottom"><span style="font-weight: bold;">Figure 1: </span> Docker architecture (Source: https://docs.docker.com/engine/article-img/architecture.svg)</caption>
-    <tr>
-      <td>
-        <img src="https://docs.docker.com/engine/article-img/architecture.svg" alt="Oops"/>
-      </td>
-    </tr>
-  </table>
+<img src="https://docs.docker.com/engine/article-img/architecture.svg" alt="Oops"
+style="width: 75%; height: 75%;"/>
 </div>
+</br>
 
 Over the last years, the Docker project constantly evolved from an originally simple container administration tool towards a holistic tool stack that covers many aspects of operating distributed applications as containers. This is an incomplete list of peripheral tools and projects which make Docker a comprehensive container ecosystem:
 
