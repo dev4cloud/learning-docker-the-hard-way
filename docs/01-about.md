@@ -47,4 +47,34 @@ But what is Docker then? At it's core, Docker came along with two basic features
 
  - __High-level interface:__ Docker offers a simple and convenient but powerful interface for managing the entire life cycle of containers without having to use any low-level Linux kernel APIs.
 
- - __Reusable images:__ In Docker, containers are created from so-called _images_. An image is a read-only template that contains a rootfs usually hosting an application along with its dependencies. Docker images enable developers to create and share container templates by making them publicly available in image repositories.    
+ - __Reusable images:__ In Docker, containers are created from so-called _images_. An image is a read-only template that contains a rootfs usually hosting an application along with its dependencies. Docker images enable developers to create and share container templates by making them publicly available in image repositories.   
+
+
+Basically, Docker is made up of three parts (see figure 1):
+
+  1. __Docker client:__ The Docker client offers a command-line interface for talking to the Docker daemon via HTTP.
+
+  2. __Docker daemon:__ The Docker daemon takes care of creating, monitoring and destroying containers as well as managing images. By default, it listens on a UNIX domain socket, but can also be configured to bind to a TCP socket for remote access.
+
+  3. __Docker Hub:__ Docker Hub is a publicly accessible repository where Docker images can be published and shared with other users.
+
+
+<br/>
+<div align="center">
+  <table class="image" style="width: 75%; height: 75%">
+    <caption align="bottom"><span style="font-weight: bold;">Figure 1: </span> Docker architecture (Source: https://docs.docker.com/engine/article-img/architecture.svg)</caption>
+    <tr>
+      <td>
+        <img src="https://docs.docker.com/engine/article-img/architecture.svg" alt="Oops"/>
+      </td>
+    </tr>
+  </table>
+</div>
+
+Over the last years, the Docker project constantly evolved from an originally simple container administration tool towards a holistic tool stack that covers many aspects of operating distributed applications as containers. This is an incomplete list of peripheral tools and projects which make Docker a comprehensive container ecosystem:
+
+ - __Swarm Mode (previously Docker Swarm):__ A container orchestration framework for reliable and fault-tolerant deployments of distributed applications.  
+
+ - __Docker Machine:__ Enables convenient provisioning and administration of Docker hosts on local infrastructure as well as several cloud providers (AWS, Microsoft Azure, DigitalOcean, ...).      
+
+ - __Docker Compose:__ Allows the definition and deployment of multi-container applications in YAML format.
