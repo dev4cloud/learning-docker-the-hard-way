@@ -59,11 +59,12 @@ Basically, Docker is made up of three parts (see figure below):
   3. __Docker Hub:__ Docker Hub is a publicly accessible repository where Docker images can be published and shared with other users.
 
 <br/>
-<div align="center">
-<img src="https://docs.docker.com/engine/article-img/architecture.svg" alt="Oops"
-style="width: 75%; height: 75%;"/>
-</div>
-</br>
+<p align="center">
+ <img src="https://docs.docker.com/engine/article-img/architecture.svg" alt="Oops" width="75%" height="75%" align="center"/>
+ <br/>
+ Source: https://docs.docker.com/engine/article-img/architecture.svg
+</p>
+<br/>
 
 Over the last years, the Docker project constantly evolved from an originally simple container administration tool towards a holistic tool stack that covers many aspects of operating distributed applications as containers. This is an incomplete list of peripheral tools and projects which make Docker a comprehensive container ecosystem:
 
