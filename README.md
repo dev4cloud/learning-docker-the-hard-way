@@ -14,6 +14,8 @@ This guide aims at undergraduate or graduate CS students which have little or no
 
 ## Contributing
 
-You went through the tutorial and encountered a mistake, bug or any question you did not find an answer to? Feel free to open an issue or submit your improvements as a PR. Contributions are always welcome. 
+You went through the tutorial and encountered a mistake, bug or any question you did not find an answer to? Feel free to open an issue or submit your improvements as a PR. Contributions are always welcome.
 
 ## Credits
+
+ - A.Mouat. _Using Docker: Developing and Deploying software with Containers_. O`Reilly Media, Dec. 2015   
