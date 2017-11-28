@@ -33,6 +33,18 @@ In contrast to hardware level virtualization, containers provide a technique to 
 
 ## What exactly is a container?
 
+As already stated above, containers provide a means to perform resource sharing on the operating system level. A container can be considered a sandbox for one or more processes, which isolates them from other processes on the host but also from the OS itself. Containers are essentially based upon two kinds of features integrated in the Linux kernel:
+
+ - __namespaces:__ Isolating containers from the host OS is achieved by leveraging Linux kernel namespaces. By means of namespaces, system wide resources like user databases, mount points and network interfaces can be hidden from the container processes by supplying each sandbox with its own copies of the underlying structures.
+
+- __cgroups:__  Cgroups (control groups) are responsible for managing the computing resources a container is allowed to use. If, for some reason, a container exceeds its assigned share, all its processes are automatically terminated by the host system.
 
 
 ## What is Docker?
+
+To clarify this right at the beginning: Docker has not invented the idea of containers. Strictly speaking, the concept of isolating processes is pretty old, e.g. UNIX systems contain the `chroot` command for decades. The Linux Container (LXC) project was the first attempt to bring namespaces, cgroups etc. together to form a complete containerization solution.<br/>
+But what is Docker then? At it's core, Docker came along with two basic features which made it a disruptive tool:
+
+ - __High-level interface:__ Docker offers a simple and convenient but powerful interface for managing the entire life cycle of containers without having to use any low-level Linux kernel APIs.
+
+ - __Reusable images:__ In Docker, containers are created from so-called _images_. An image is a read-only template that contains a rootfs usually hosting an application along with its dependencies. Docker images enable developers to create and share container templates by making them publicly available in image repositories.    
