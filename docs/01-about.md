@@ -50,7 +50,7 @@ But what is Docker then? At it's core, Docker came along with two basic features
  - __Reusable images:__ In Docker, containers are created from so-called _images_. An image is a read-only template that contains a rootfs usually hosting an application along with its dependencies. Docker images enable developers to create and share container templates by making them publicly available in image repositories.   
 
 
-Basically, Docker is made up of three parts (see figure below):
+Basically, Docker is made up of three parts (see figure 1):
 
   1. __Docker client:__ The Docker client offers a command-line interface for talking to the Docker daemon via HTTP.
 
@@ -62,7 +62,7 @@ Basically, Docker is made up of three parts (see figure below):
 <p align="center">
  <img src="https://docs.docker.com/engine/article-img/architecture.svg" alt="Oops" width="75%" height="75%" align="center"/>
  <br/>
- Source: https://docs.docker.com/engine/article-img/architecture.svg
+ Figure 1: Docker architecture (Source: https://docs.docker.com/engine/article-img/architecture.svg)
 </p>
 <br/>
 
