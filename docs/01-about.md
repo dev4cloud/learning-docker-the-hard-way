@@ -5,8 +5,8 @@ This part of our Docker guide provides an introduction into Docker and the conce
 ## Outline
 
  - [The motivation behind containers](#the-motivation-behind-containers)
- - [What exactly is a container?](#what-exactly-is-a-container?)
- - [What is Docker?](#what-is-docker?)
+ - [What exactly is a container?](#what-exactly-is-a-container)
+ - [What is Docker?](#what-is-docker)
 
 
 ## The motivation behind containers
