@@ -73,3 +73,5 @@ Over the last years, the Docker project constantly evolved from an originally si
  - __Docker Machine:__ Enables convenient provisioning and administration of Docker hosts on local infrastructure as well as several cloud providers (AWS, Microsoft Azure, DigitalOcean, ...).      
 
  - __Docker Compose:__ Allows the definition and deployment of multi-container applications in YAML format.
+
+ We will meet some of these tools during our journey through the Docker ecosystem.
