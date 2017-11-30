@@ -54,8 +54,30 @@ $ sudo apt-get install -y docker-ce
 
 Given you run on Windows, you can [download](https://docs.docker.com/docker-for-windows/install/) and run an `.msi` installer to get Docker on your machine. Note that Windows 10 Pro with Hyper-V is required to run Linux containers on a Win-based Docker host. More information on the requirements is available in the [docs](https://docs.docker.com/docker-for-windows/install/). For running Linux and Windows containers side by side, you'll find valuable input in [this blog post](https://stefanscherer.github.io/run-linux-and-windows-containers-on-windows-10/) by Stefan Scherer.  
 
-In case you work on a Mac, there's a separate _Docker for Mac_ edition you can use. Please look [here](https://docs.docker.com/docker-for-mac/install/) for installation instructions. 
+In case you work on a Mac, there's a separate _Docker for Mac_ edition you can use. Please look [here](https://docs.docker.com/docker-for-mac/install/) for installation instructions.
 
 ## Alternative 1: Setting up a VM with Vagrant
+
+If your Mac or Windows version is not compatible with Docker for Mac/Windows or you'd rather like to work on a VM anyway, we provide a `Vagrantfile` which enables you setting up an Ubuntu 16.04 VM with Docker installed fastly.
+
+### Requirements
+
+ - Oracle Virtualbox
+ - [Vagrant](https://www.vagrantup.com/)
+
+### Create the VM
+
+1) Start the VM.
+
+```
+$ cd ../vagrant/
+$ vagrant up
+```
+
+2) SSH into the running machine.
+
+```
+$ vagrant ssh
+```
 
 ## Alternative 2: "Play with Docker"

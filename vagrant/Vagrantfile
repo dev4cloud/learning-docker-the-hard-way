@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  # Define Vagrant box.
+  config.vm.box = "ubuntu/xenial64"
+
+  # Create private network and assign IP to machine. 
+  config.vm.network "private_network", ip: "10.0.1.2"
+
+  # Configure Virtualbox as VM provider.
+  config.vm.provider "virtualbox" do |vb|
+	 vb.name = "my-dockerbox" 
+     vb.memory = "2048"
+  end
+
+  config.vm.provision "shell", path: "install_docker.sh" 
+end
