@@ -32,7 +32,7 @@ This guide aims at undergraduate or graduate CS students which have little or no
   - Image signing and Notary (tbd)
   - Docker secrets management (tbd)
   - Further security aspects (tbd)
-  - Docker storage drivers (tbd)
+  - Excursion: Docker storage drivers (tbd)
   - Excursion: Plumbing in Docker (tbd)
   - runC and containerd (tbd)
 
