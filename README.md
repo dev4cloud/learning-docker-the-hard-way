@@ -7,7 +7,7 @@ This guide aims at undergraduate or graduate CS students which have little or no
 
 ## Outline
 
- - Level: Beginner
+- Level: Beginner
   - [About Docker and container technology](docs/01-about.md)
   - [Installing Docker](docs/02-installing.md) (tbd)
   - ["Hello Docker"](docs/03-hello-docker.md) (tbd)
@@ -16,7 +16,6 @@ This guide aims at undergraduate or graduate CS students which have little or no
   - Container volumes (tbd)
   - Interacting with a Docker Registry (tbd)
   - Setting up your private Registry server (tbd)
-
 
 - Level: Intermediate
   - How to build your own Docker images (tbd)
