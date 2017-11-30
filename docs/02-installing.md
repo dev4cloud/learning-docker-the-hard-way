@@ -15,17 +15,17 @@ Docker is available in two editions: The Docker Community (CE) or Enterprise (EE
 
 ## Docker on Linux
 
-We assume to be on a amd64 Ubuntu 16.04 machine for the following installation procedure. If you prefer another Linux distribution, for instance Debian or Fedora, or if you'd like to work on another hardware platform like ARM, please refer to the [Docker documentation](https://docs.docker.com/engine/installation/linux/docker-ce) and read about the installation instructions for the Linux flavor of your choice.  
+We assume to be on a amd64 Ubuntu 16.04 machine for the following installation procedure. If you prefer another Linux distribution, for instance Debian or Fedora, or if you'd like to work on another supported hardware platform like ARM, please refer to the [Docker documentation](https://docs.docker.com/engine/installation/linux/docker-ce) and read about the installation instructions for the Linux and architecture flavor of your choice.  
 
  1) Install packages to enable `apt` accessing a respository over HTTPS:
 
  ```
  $ sudo apt-get update
  $ sudo apt-get install -y \
-  apt-transport-https \
-  ca-certificates \
-  curl \
-  software-properties-common
+   apt-transport-https \
+   ca-certificates \
+   curl \
+   software-properties-common
  ```
 
  2) Import Docker GPG key
@@ -51,6 +51,10 @@ $ sudo apt-get install -y docker-ce
 ```
 
 ## Docker on Windows/Mac
+
+Given you run on Windows, you can [download](https://docs.docker.com/docker-for-windows/install/) and run an `.msi` installer to get Docker on your machine. Note that Windows 10 Pro with Hyper-V is required to run Linux containers on a Win-based Docker host. More information on the requirements is available in the [docs](https://docs.docker.com/docker-for-windows/install/). For running Linux and Windows containers side by side, you'll find valuable input in [this blog post](https://stefanscherer.github.io/run-linux-and-windows-containers-on-windows-10/) by Stefan Scherer.  
+
+In case you work on a Mac, there's a separate _Docker for Mac_ edition you can use. Please look [here](https://docs.docker.com/docker-for-mac/install/) for installation instructions. 
 
 ## Alternative 1: Setting up a VM with Vagrant
 
