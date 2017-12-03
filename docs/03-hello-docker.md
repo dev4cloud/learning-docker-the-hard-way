@@ -75,7 +75,7 @@ If you don't receive the output shown above when executing the `docker run` comm
 #### 1. Ensure that Docker has been installed properly
 
 ```
-$ docker -v
+$ docker --version
 Docker version 17.09.0-ce, build afdb6d4
 ```
 
@@ -109,7 +109,7 @@ In order to be allowed to interact with the Docker daemon, your user has to meet
 
 ##### a) User can run commands with superuser privileges
 
-Start your Docker commands with `sudo`:
+Prefix your Docker commands with `sudo`:
 ```
 $ sudo docker run hello-world
 ```
