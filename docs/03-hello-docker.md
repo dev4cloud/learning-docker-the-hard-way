@@ -54,7 +54,7 @@ Congratulations, you've just launched your first Docker container successfully.
 
 <br/>
 
-## What has happended under the hood?
+## What has happened under the hood?
 
 Fortunately, the output of our "Hello World" container provides valuable information on the steps that were necessary for it to appear on the console:
 
