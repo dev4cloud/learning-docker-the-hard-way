@@ -26,7 +26,6 @@ This guide aims at undergraduate or graduate CS students which have little or no
   - Excursion: The Raft consensus protocol (tbd)
   - Networking in Docker (tbd)
 
-
 - Level: Advanced
   - Multi-stage Docker image builds (tbd)
   - Image signing and Notary (tbd)
