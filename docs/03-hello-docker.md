@@ -9,6 +9,7 @@ and launch your first Docker container. This is the goal of this part of the tut
  - What has happened under the hood?
  - Troubleshooting
 
+<br/>
 
 ## Running your first container
 
@@ -51,6 +52,7 @@ For more examples and ideas, visit:
 
 Congratulations, you've just launched your first Docker container successfully.
 
+<br/>
 
 ## What has happended under the hood?
 
@@ -64,6 +66,7 @@ Fortunately, the output of our "Hello World" container provides valuable informa
 
  4. The first lines of the output also show some weird sequences of numbers and letters like _ca4f61b1923c_. These are SHA-256 hashes which pose a cryptographic property of Docker images and, among others, serve the purpose of integrity verification. More on this later.
 
+<br/>
 
 ## Troubleshooting  
 
@@ -75,6 +78,8 @@ If you don't receive the output shown above when executing the `docker run` comm
 $ docker -v
 Docker version 17.09.0-ce, build afdb6d4
 ```
+
+<br/>
 
 #### 2. Check if the Docker daemon is active
 
@@ -95,6 +100,8 @@ If your Docker daemon is reported to be not running, try restarting it via your 
 ```
 $ sudo systemctl restart docker.service
 ```
+
+<br/>
 
 #### 3. Check if user has permissions to interact with the Docker daemon
 
