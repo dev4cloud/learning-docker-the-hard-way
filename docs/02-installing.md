@@ -81,3 +81,5 @@ $ vagrant ssh
 ```
 
 ## Alternative 2: "Play with Docker"
+
+Instead of installing Docker locally or bringing up a VM, another alternative is to jump to ["Play with Docker"](https://labs.play-with-docker.com/) which provides a Docker playground that can be used from the browser. 
