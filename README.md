@@ -9,7 +9,7 @@ This guide aims at undergraduate or graduate CS students which have little or no
 
 - Level: Beginner
   - [About Docker and container technology](docs/01-about.md)
-  - [Installing Docker](docs/02-installing.md) (tbd)
+  - [Installing Docker](docs/02-installing.md)
   - ["Hello Docker"](docs/03-hello-docker.md) (tbd)
   - Basic container administration (tbd)
   - Excursion: About Images and containers (tbd)
