@@ -2,16 +2,16 @@
 
 This part is about getting Docker up and running on your local machine. If, for some reason, you can't or don't want to install Docker on your local host directly, this guide also provides you with some alternatives that still offer a good experience.  
 
- - Docker Community (CE) and Enterprise (EE) edition
+ - Docker Community (CE) and Enterprise (EE) Edition
  - Docker on Linux
  - Docker on Windows/Mac
  - Alternative 1: Setting up a VM with Vagrant
  - Alternative 2: "Play with Docker"
 
 
-## Docker Community (CE) and Enterprise (EE) edition
+## Docker Community (CE) and Enterprise (EE) Edition
 
-Docker is available in two editions: The Docker Community (CE) or Enterprise (EE) edition. While the free Docker CE version is perfectly suitable for development and inlcudes the most important features, the fee-based Docker EE variant comes with additional features that are only relevant for productive development. We will therefore adhere to Docker CE for this guide.
+Docker is available in two editions: The Docker Community (CE) or Enterprise (EE) Edition. While the free Docker CE version is perfectly suitable for development and inlcudes the most important features, the fee-based Docker EE variant comes with additional features that are only relevant for productive development. We will therefore adhere to Docker CE for this guide.
 
 ## Docker on Linux
 
@@ -82,4 +82,4 @@ $ vagrant ssh
 
 ## Alternative 2: "Play with Docker"
 
-Instead of installing Docker locally or bringing up a VM, another alternative is to jump to ["Play with Docker"](https://labs.play-with-docker.com/) which provides a Docker playground that can be used from the browser. 
+Instead of installing Docker locally or bringing up a VM, another alternative is to jump to ["Play with Docker"](https://labs.play-with-docker.com/) which provides a Docker playground that can be used from the browser.
