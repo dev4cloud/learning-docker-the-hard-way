@@ -5,9 +5,9 @@ and launch your first Docker container. This is the goal of this part of the tut
 
 ## Outline
 
- - Running your first container
- - What has happened under the hood?
- - Troubleshooting
+ - [Running your first container](#running-your-first-container)
+ - [What has happened under the hood?](#what-has-happened-under-the-hood)
+ - [Troubleshooting](#troubleshooting)
 
 <br/>
 
