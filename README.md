@@ -11,7 +11,7 @@ This guide aims at undergraduate or graduate CS students which have little or no
   - [About Docker and container technology](docs/01-about.md)
   - [Installing Docker](docs/02-installing.md)
   - ["Hello Docker"](docs/03-hello-docker.md)
-  - Basic container administration (tbd)
+  - [Basic container administration](docs/04-basics.md)
   - Excursion: About Images and containers (tbd)
   - Container volumes (tbd)
   - Interacting with a Docker Registry (tbd)
