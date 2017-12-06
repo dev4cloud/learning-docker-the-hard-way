@@ -42,4 +42,5 @@ You went through the tutorial and encountered a mistake, bug or any question you
 
 ## Credits
 
- - A.Mouat. _Using Docker: Developing and Deploying software with Containers_. O`Reilly Media, Dec. 2015   
+ - A.Mouat. _Using Docker: Developing and Deploying software with Containers_. O'Reilly Media, Dec. 2015   
+ - Docker, Inc. _Docker Documentation_. 2017. URL: [https://docs.docker.com/](https://docs.docker.com/)
