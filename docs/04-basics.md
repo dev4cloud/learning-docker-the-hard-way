@@ -15,6 +15,8 @@ This fourth part of our Docker guide gives an overview of some of the most frequ
 
 At the beginning, we want to do a high-level journey through the most basic Docker commands. Most of the following commands come with several options to tweak their behavior in different ways. We will look at them more closely in the next paragraphs.
 
+<br/>
+
 #### The `docker run` command
 
 The `docker run` command certainly belongs to the most important commands when it comes to managing the life cycle of a container. Its purpose is to start a process in a container, using an _image_ as a template:  
@@ -46,6 +48,26 @@ We will examine these parameters in more detail and see them in action below.
 <br/>
 
 #### The `docker ps` command
+
+One of the most important aspects when running Docker containers is to keep an overview of all containers which are currently running. This is the purpose of the `docker ps` command, which returns a list of active containers by default. You can check it out yourself by launching the following commands in your terminal:
+
+```
+$ docker run -d debian sleep 100
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+c0497e7cad54        debian              "sleep 100"         4 seconds ago       Up 3 seconds                            pedantic_pare
+```
+
+You see that `docker ps` supplies some basic information most of which should be self-explanatory. As soon as the `sleep` process terminates or gets stopped explicitly the container is no longer visible in the list.
+<br/>The general form of the command looks as follows:
+
+```
+$ docker ps [OPTIONS]
+```
+
+Again, this Docker command allows ist behavior to be tweaked by a range of options some of which we will meet later.
+
+<br/>
 
 #### The `docker inspect` command
 
