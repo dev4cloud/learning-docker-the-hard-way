@@ -4,25 +4,57 @@ This fourth part of our Docker guide gives an overview of some of the most frequ
 
 ## Outline
 
+ - Basic commands
  - The `docker run` command
  - Keeping the overview of your containers
  - Inspecting containers
 
 <br/>
 
-## The `docker run` command
+## Basic commands
 
-### Introduction
+At the beginning, we want to do a high-level journey through the most basic Docker commands. Most of the following commands come with several options to tweak their behavior in different ways. We will look at them more closely in the next paragraphs.
 
-The probably most important Docker command for managing the life cycle of a container is the `run` command. We already met it in the previous section when we launched our very first container:
+#### The `docker run` command
+
+The `docker run` command certainly belongs to the most important commands when it comes to managing the life cycle of a container. Its purpose is to start a process in a container, using an _image_ as a template:  
 
 ```
 $ docker run hello-world
 ```
 
-The generalized structure of the `docker run` command is defined as follows: <br/> _docker run [OPTIONS] IMAGE [COMMAND] [ARG...]_
+The general structure of the `docker run` command is defined as follows: <br/>
 
-What it does is running a command inside a new container which is derived from the Docker image denoted by _IMAGE_. The _COMMAND_ that shall be executed is optional as images are free to specify an executable which shall be invoked by default. This is also the case for the `hello-world` image as shown above. Assumed that IMAGE is not present on disk it first gets downloaded (or "pulled" in Docker-speak) from Docker Hub.
+```
+$ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
+```
+
+ - __IMAGE__: Denotes the Docker image the container is based on. If _IMAGE_ is not present on disk, it first gets "pulled" (i.e. downloaded) from an image registry (default is Docker Hub).
+
+ - __COMMAND__ (optional): This parameter defines the executable to be launched on container startup. It is not mandatory as images usually specify a default command. If specified, _COMMAND_ takes precedence over the defaults so they can be overridden if necessary.  
+
+ - __[ARG...]__ (optional): A list of _n_ arguments (with n >= 0) that shall be passed to _COMMAND_.
+
+ - __TAG__ (optional): Points to a certain version of an _IMAGE_, defaults to _latest_.
+ - __@DIGEST__ (optional): Provides another possbility to specify a certain image version by appending its hash (SHA-256) to the image name.  
+
+ - __OPTIONS__ (optional): A list of options to modify the behavior of the `docker run` command.
+
+
+We will examine these parameters in more detail and see them in action below.
+
+<br/>
+
+#### The `docker ps` command
+
+#### The `docker inspect` command
+
+#### The `docker logs` command
+
+<br/>
+
+
+## A closer look at `docker run`
 
 #### Specifying a custom command   
 
@@ -55,4 +87,4 @@ Hello Docker!
 Note that we additionaly need to append two options to the `run` command for this to work:
 
  - `--tty` : Allocate a pseudo-terminal (tty) and attach it to the container process.
- - `--interactive` : Keeps the container process's STDIN open even if no tty is attached.  
+ - `--interactive` : Keeps the container process's STDIN open even if no console/tty is attached.  
