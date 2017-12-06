@@ -17,7 +17,7 @@ At the beginning, we want to do a high-level journey through the most basic Dock
 
 <br/>
 
-#### The `docker run` command
+### The `docker run` command
 
 The `docker run` command certainly belongs to the most important commands when it comes to managing the life cycle of a container. Its purpose is to start a process in a container, using an _image_ as a template:  
 
@@ -47,7 +47,7 @@ We will examine these parameters in more detail and see them in action below.
 
 <br/>
 
-#### The `docker ps` command
+### The `docker ps` command
 
 One of the most important aspects when running Docker containers is to keep an overview of all containers which are currently running. This is the purpose of the `docker ps` command, which returns a list of active containers by default. You can check it out yourself by launching the following commands in your terminal:
 
@@ -69,9 +69,9 @@ Again, this Docker command allows ist behavior to be tweaked by a range of optio
 
 <br/>
 
-#### The `docker inspect` command
+### The `docker inspect` command
 
-#### The `docker logs` command
+### The `docker logs` command
 
 <br/>
 
