@@ -111,6 +111,15 @@ As you can see, using `grep` basically works but also might return additional "n
 
 ### The `docker logs` command
 
+The `docker logs` command allows to access the logs of e.g. a containerized application that writes its traces to STDOUT and STDERR. For instance, this might be useful for debugging error conditions.  
+
+```
+$ docker run -d debian echo "Hello Docker!"
+2469992cf909ce37fe0f88d9f18ffbfb5fd9b14ed6862d21bb84f94a18cdea9a
+$ docker logs 246
+Hello Docker!
+```
+
 <br/>
 
 
