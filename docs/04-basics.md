@@ -55,7 +55,7 @@ One of the most important aspects when running Docker containers is to keep an o
 $ docker run -d debian sleep 100
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-c0497e7cad54        debian              "sleep 100"         4 seconds ago       Up 3 seconds                            pedantic_pare
+29c16ee80f01        debian              "sleep 100"         2 seconds ago       Up 1 second                             happy_payne
 ```
 
 You see that `docker ps` supplies some basic information most of which should be self-explanatory. As soon as the `sleep` process terminates or gets stopped explicitly the container is no longer visible in the list.
@@ -70,6 +70,44 @@ Again, this Docker command allows ist behavior to be tweaked by a range of optio
 <br/>
 
 ### The `docker inspect` command
+
+While the `docker ps` command gives us a high-level overview of running containers, we can use the `docker inspect` command to get a more detailed insight into a specific container. To specify the container you want to examine, use its container ID or the random name it gets assigned by the Docker Engine (we'll see how to name containers in a custom fashion shortly).
+
+```
+$ docker inspect happy_payne
+[
+    {
+        "Id": "29c16ee80f01f954d1879a1939794e3dc8101ef213e21b3cad817f18897a1e7d",
+        "Created": "2017-12-08T14:17:43.508158352Z",
+        "Path": "sleep",
+        "Args": [
+            "100"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 8839,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2017-12-08T14:17:43.913842045Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+ ...            
+```  
+
+The output of the `docker inspect` command is slightly extensive and sometimes you're only interested in some defined part of the information it provides, e.g. its hostname. One option is to use `grep` in order to filter for the information you need:
+
+```
+$ docker inspect happy_payne | grep Hostname
+"HostnamePath": "/var/lib/docker/containers/29c16ee80f01f954d1879a1939794e3dc8101ef213e21b3cad817f18897a1e7d/hostname",
+    "Hostname": "29c16ee80f01",
+```   
+
+As you can see, using `grep` basically works but also might return additional "noisy" information we didn't search for, as `grep` does a simple string matching. Below, we'll examine how Go templates can be applied to be more precise with filtering without having to struggle with regular expressions.
+
 
 ### The `docker logs` command
 
