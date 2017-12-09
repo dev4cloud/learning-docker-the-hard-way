@@ -6,8 +6,9 @@ This fourth part of our Docker guide gives an overview of some of the most frequ
 
  - [Basic commands](#basic-commands)
  - [A closer look at `docker run`](#a-closer-look-at-docker-run)
- - [More about `docker ps`](#more-about-docker-ps)
-
+ - [More on `docker ps`](#more-on-docker-ps)
+ - [Using `docker inspect` effectively](#using-docker-inspect-effectively)
+ - [Examining container logs](#examining-container-logs)
 
 <br/>
 
@@ -145,43 +146,53 @@ docker logs [OPTIONS] NAME|ID
 
 ## A closer look at `docker run`
 
+Above, we've already introduced the purpose and syntax of the `docker run` command, which is used to create and launch containers from images. This subsection places the focus on some of the command's most relevant options and their use case.   
+
+#### Assigning custom names to containers
+
 #### Specifying a custom command   
 
-As a next step, we will try to run a custom command inside a container. Paste the following Docker command into your terminal and give it a whirl:
+As already mentioned, custom commands can be provided when starting a Docker container that override the underlying image's default command.
+Paste the following Docker command into your terminal and give it a whirl:
 
 ```
 $ docker run debian echo "Hello Docker!"
 Hello Docker!
 ```
 
-Here, we use the Debian image and instruct Docker to create a container that executes the `echo` shell command and prints the result to STDOUT.   
+Here we use the Debian image and instruct Docker to create a container that executes the `echo` shell command and prints the result to STDOUT. In some cases, we'll have to use the `--entrypoint` option to specify the executable that shall be launched in the container. The section that covers Dockerfiles will examine this further.    
 
 
-#### Interactive containers
+#### Foreground mode and interactive containers
 
-Up to now, the containers we launched were slightly boring: All they did was executing a single command and exiting afterwards. Thus, let's make on step forward to see how we can run a shell inside a container:
-
-```
-$ docker run --interactive --tty debian bash
-root@431ebce78b63:/#
-```
-
-The Docker command from above starts bash in a container and waits for input instead of exiting.
+By default, Docker starts containers in _foreground mode_, meaning that the current console is attached to STDOUT and STDERR if nothing else is specified. You can observe this behavior by running the following container:
 
 ```
-root@431ebce78b63:/# echo "Hello Docker!"
-Hello Docker!
+$ docker run -p 8080:80 nginx
 ```
 
-Note that we additionaly need to append two options to the `run` command for this to work:
+Now, go to your browser and fire some requests to `localhost:8080` where you should see a Nginx welcome page. At the same time, try to keep one eye on your console where some Nginx webserver logs should appear when you send requests.    
 
- - `--tty` : Allocate a pseudo-terminal (tty) and attach it to the container process.
- - `--interactive` : Keeps the container process's STDIN open even if no console/tty is attached.
+```
+$ docker run -p 8080:80 nginx
+172.17.0.1 - - [09/Dec/2017:17:09:27 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0" "-"
+```
 
+
+
+<!--Note that we additionaly need to append two options to the `run` command for this to work:
+
+ - `--tty` : Allocate a [pseudo-terminal (tty)](https://en.wikipedia.org/wiki/Pseudoterminal) and attach it to the container process.
+ - `--interactive` : Keeps the container process's STDIN open even if no console is attached. -->
+
+
+#### Running containers in detached mode
+
+#### Cleaning up containers automatically
 
 <br/>
 
-## More about `docker ps`
+## More on `docker ps`
 
 ## Using `docker inspect` effectively
 
@@ -194,3 +205,5 @@ $ docker inspect happy_payne | grep Hostname
 ```   
 
 As you can see, using `grep` basically works but also might return additional "noisy" information we didn't search for, as `grep` does a simple string matching. Below, we'll examine how Go templates can be applied to be more precise with filtering without having to struggle with regular expressions.
+
+## Examining container logs
