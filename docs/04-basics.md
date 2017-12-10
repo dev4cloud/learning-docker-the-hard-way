@@ -53,10 +53,10 @@ We will examine these parameters in more detail and see them in action below.
 One of the most important aspects when running Docker containers is to keep an overview of all containers which are currently running. This is the purpose of the `docker ps` command, which returns a list of active containers by default. You can check it out yourself by launching the following commands in your terminal:
 
 ```
-$ docker run -d debian sleep 100
+$ docker run -d dev4cloud/nightcap
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-29c16ee80f01        debian              "sleep 100"         2 seconds ago       Up 1 second                             happy_payne
+29c16ee80f01        dev4cloud/nightcap              "sleep 100"         2 seconds ago       Up 1 second                             happy_payne
 ```
 
 You see that `docker ps` supplies some basic information most of which should be self-explanatory. As soon as the `sleep` process terminates or gets stopped explicitly the container is no longer visible in the list.
@@ -66,7 +66,7 @@ You see that `docker ps` supplies some basic information most of which should be
 $ docker ps [OPTIONS]
 ```
 
-Again, this Docker command allows ist behavior to be tweaked by a range of options some of which we will meet later.
+Again, this Docker command allows its behavior to be tweaked by a range of options some of which we will meet later.
 
 <br/>
 
@@ -122,9 +122,9 @@ Note that more than one container can be passed to the `docker inspect` command,
 The `docker logs` command allows to access the logs of e.g. a containerized application that writes its traces to STDOUT and STDERR. For instance, this might be useful for debugging error conditions.  
 
 ```
-$ docker run -d debian echo "Hello Docker!"
+$ docker run -d dev4cloud/hello-docker
 2469992cf909ce37fe0f88d9f18ffbfb5fd9b14ed6862d21bb84f94a18cdea9a
-$ docker logs 246
+$ docker logs 246999
 Hello Docker!
 ```
 
@@ -150,41 +150,83 @@ Above, we've already introduced the purpose and syntax of the `docker run` comma
 
 #### Assigning custom names to containers
 
+First, let's see how we can assign custom names to containers so we can address them by means of meaningful designations. For that purpose, we use the `--name` option:
+
+```
+$ docker run -d --name nightcap dev4cloud/nightcap
+50a7bf6c4dc93c760da50540ed43e8c49cff746eb454de88ab37614af72f618f
+$ docker ps
+CONTAINER ID        IMAGE                           COMMAND             CREATED             STATUS              PORTS               NAMES
+50a7bf6c4dc9        dev4cloud/nightcap              "sleep 100"         3 seconds ago       Up 2 seconds                            nightcap
+
+```
+
+Custom names give us the opportunity to conveniently refer to specific containers in the context of other Docker commands without having to remember complicated container IDs. For example, we can inspect the container we previously launched by passing its name to the corresponding command:
+
+```
+$ docker inspect nightcap
+```  
+
+Note that container names must be unique. Consequently, the Docker daemon returns an error given that a container with a certain name already exists:
+
+```
+$ docker run -d --name nightcap dev4cloud/nightcap
+50a7bf6c4dc93c760da50540ed43e8c49cff746eb454de88ab37614af72f618f
+$ docker run -d --name nightcap dev4cloud/nightcap
+docker: Error response from daemon: Conflict. The container name "/nightcap" is already in use by container "50a7bf6c4dc93c760da50540ed43e8c49cff746eb454de88ab37614af72f618f". You have to remove (or rename) that container to be able to reuse that name.
+```
+
+<br/>
+
+
 #### Specifying a custom command   
 
-As already mentioned, custom commands can be provided when starting a Docker container that override the underlying image's default command.
+As already mentioned, users can provide an executable that shall be launched when a Docker container gets started. The user-defined command takes precedence over an image's default process.
 Paste the following Docker command into your terminal and give it a whirl:
 
 ```
-$ docker run debian echo "Hello Docker!"
-Hello Docker!
+$ docker run dev4cloud/hello-docker echo "Hello World!"
+Hello World!
 ```
 
-Here we use the Debian image and instruct Docker to create a container that executes the `echo` shell command and prints the result to STDOUT. In some cases, we'll have to use the `--entrypoint` option to specify the executable that shall be launched in the container. The section that covers Dockerfiles will examine this further.    
+Here, we instruct our sample image to print "Hello World!" instead of "Hello Docker!" which is its standard behavior if nothing else is specified.
+
+In some cases, we'll have to use the `--entrypoint` option to specify the executable that shall be launched in the container. The section about Dockerfiles will examine this further.    
+
+<br/>
 
 
 #### Foreground mode and interactive containers
 
-By default, Docker starts containers in _foreground mode_, meaning that the current console is attached to STDOUT and STDERR if nothing else is specified. You can observe this behavior by running the following container:
+By default, Docker starts containers in _foreground mode_, meaning that the current console is attached to STDOUT and STDERR if not specified otherwise. You can observe this behavior by running the following container:
 
 ```
 $ docker run -p 8080:80 nginx
 ```
 
-Now, go to your browser and fire some requests to `localhost:8080` where you should see a Nginx welcome page. At the same time, try to keep one eye on your console where some Nginx webserver logs should appear when you send requests.    
+Now go to your browser and fire some requests to `localhost:8080` where you should see a Nginx welcome page. At the same time, try to keep one eye on your console where some Nginx webserver logs should appear on incoming requests.
 
 ```
 $ docker run -p 8080:80 nginx
 172.17.0.1 - - [09/Dec/2017:17:09:27 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0" "-"
 ```
 
+In order to additionally attach the containerized process's STDIN to the terminal, we have to add the `--interactive` flag (short: `-i`):
 
+```
+$ echo "hi" | docker run -i dev4cloud/hello-docker cat
+hi
+```    
 
-<!--Note that we additionaly need to append two options to the `run` command for this to work:
+If we'd like to go one step further and run an interactive shell in a container, we additionally have to allocate a tty or [pseudo-terminal (tty)](https://en.wikipedia.org/wiki/Pseudoterminal) and attach it to our container. Docker can be instructed to do that for us via the `--tty` (short: `-t`) flag. Accordingly, the complete command to launch a containerized shell looks like this:
 
- - `--tty` : Allocate a [pseudo-terminal (tty)](https://en.wikipedia.org/wiki/Pseudoterminal) and attach it to the container process.
- - `--interactive` : Keeps the container process's STDIN open even if no console is attached. -->
+```
+$ docker run -it alpine sh
+/ # echo "Hello Docker!"
+Hello Docker!
+```
 
+<br/>
 
 #### Running containers in detached mode
 
