@@ -23,7 +23,7 @@ At the beginning, we want to do a high-level journey through the most basic Dock
 The `docker run` command certainly belongs to the most important commands when it comes to managing the life cycle of a container. Its purpose is to start a process in a container, using an _image_ as a template:  
 
 ```
-$ docker run hello-world
+$ docker run dev4cloud/hello-docker
 ```
 
 The general structure of the `docker run` command is defined as follows: <br/>
@@ -55,8 +55,8 @@ One of the most important aspects when running Docker containers is to keep an o
 ```
 $ docker run -d dev4cloud/nightcap
 $ docker ps
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-29c16ee80f01        dev4cloud/nightcap              "sleep 100"         2 seconds ago       Up 1 second                             happy_payne
+CONTAINER ID        IMAGE                COMMAND             CREATED             STATUS              PORTS               NAMES
+29c16ee80f01        dev4cloud/nightcap   "sleep 100"         3 seconds ago       Up 2 seconds                            happy_payne
 ```
 
 You see that `docker ps` supplies some basic information most of which should be self-explanatory. As soon as the `sleep` process terminates or gets stopped explicitly the container is no longer visible in the list.
@@ -201,14 +201,15 @@ In some cases, we'll have to use the `--entrypoint` option to specify the execut
 By default, Docker starts containers in _foreground mode_, meaning that the current console is attached to STDOUT and STDERR if not specified otherwise. You can observe this behavior by running the following container:
 
 ```
-$ docker run -p 8080:80 nginx
+$ docker run -p 9999:2000 --name copycat dev4cloud/copycat
+Copycat listening at [::]:2000 ...
 ```
 
-Now go to your browser and fire some requests to `localhost:8080` where you should see a Nginx welcome page. At the same time, try to keep one eye on your console where some Nginx webserver logs should appear on incoming requests.
+You should see that your terminal is blocked by _copycat_ waiting for some input. Open another console and use _netcat_ to send some messages to _copycat_:
 
 ```
-$ docker run -p 8080:80 nginx
-172.17.0.1 - - [09/Dec/2017:17:09:27 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0" "-"
+$ echo "Hi Copycat" | nc localhost 9999
+Hi Copycat
 ```
 
 In order to additionally attach the containerized process's STDIN to the terminal, we have to add the `--interactive` flag (short: `-i`):
