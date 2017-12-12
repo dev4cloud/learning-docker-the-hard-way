@@ -53,7 +53,9 @@ We will examine these parameters in more detail and see them in action below.
 One of the most important aspects when running Docker containers is to keep an overview of all containers which are currently running. This is the purpose of the `docker ps` command, which returns a list of active containers by default. You can check it out yourself by launching the following commands in your terminal:
 
 ```
-$ docker run -d dev4cloud/nightcap
+$ docker run dev4cloud/nightcap
+...
+# Run from another terminal:
 $ docker ps
 CONTAINER ID        IMAGE                COMMAND             CREATED             STATUS              PORTS               NAMES
 29c16ee80f01        dev4cloud/nightcap   "sleep 100"         3 seconds ago       Up 2 seconds                            happy_payne
@@ -122,8 +124,9 @@ Note that more than one container can be passed to the `docker inspect` command,
 The `docker logs` command allows to access the logs of e.g. a containerized application that writes its traces to STDOUT and STDERR. For instance, this might be useful for debugging error conditions.  
 
 ```
-$ docker run -d dev4cloud/hello-docker
-2469992cf909ce37fe0f88d9f18ffbfb5fd9b14ed6862d21bb84f94a18cdea9a
+$ docker run dev4cloud/hello-docker
+...
+# Run from another terminal; For container ID see 'docker ps':
 $ docker logs 246999
 Hello Docker!
 ```
@@ -153,8 +156,9 @@ Above, we've already introduced the purpose and syntax of the `docker run` comma
 First, let's see how we can assign custom names to containers so we can address them by means of meaningful designations. For that purpose, we use the `--name` option:
 
 ```
-$ docker run -d --name nightcap dev4cloud/nightcap
-50a7bf6c4dc93c760da50540ed43e8c49cff746eb454de88ab37614af72f618f
+$ docker run --name nightcap dev4cloud/nightcap
+...
+# Run from another terminal:
 $ docker ps
 CONTAINER ID        IMAGE                           COMMAND             CREATED             STATUS              PORTS               NAMES
 50a7bf6c4dc9        dev4cloud/nightcap              "sleep 100"         3 seconds ago       Up 2 seconds                            nightcap
@@ -170,9 +174,10 @@ $ docker inspect nightcap
 Note that container names must be unique. Consequently, the Docker daemon returns an error given that a container with a certain name already exists:
 
 ```
-$ docker run -d --name nightcap dev4cloud/nightcap
-50a7bf6c4dc93c760da50540ed43e8c49cff746eb454de88ab37614af72f618f
-$ docker run -d --name nightcap dev4cloud/nightcap
+$ docker run --name nightcap dev4cloud/nightcap
+...
+# Run from another terminal:
+$ docker run --name nightcap dev4cloud/nightcap
 docker: Error response from daemon: Conflict. The container name "/nightcap" is already in use by container "50a7bf6c4dc93c760da50540ed43e8c49cff746eb454de88ab37614af72f618f". You have to remove (or rename) that container to be able to reuse that name.
 ```
 
@@ -230,6 +235,44 @@ Hello Docker!
 <br/>
 
 #### Running containers in detached mode
+
+For many applications running in containers, there's no need to keep them attached to the terminal. For instance, think of a web server which does not require a permanent link to a console as it is perfectly suitable to move the process to the background and direct STDOUT and STDERR to appropriate log files. A container running in the background is also said to be in _detached mode_. The Docker dameon must explicitly be told to start a container in detached mode by means of the `--detach` (short `-d`) flag:
+
+```
+$ docker run -d -p 9999:2000 --name copycat dev4cloud/copycat
+fda616caabda3a4cb4b4517cdd647b79d879b929cd9c5af98396151adb73df0f
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
+fda616caabda        dev4cloud/copycat   "./copycat"         2 minutes ago       Up 2 minutes        0.0.0.0:9999->2000/tcp   copycat
+```
+
+As you can see in the example above, instead of blocking your terminal the daemon simply responds with the container ID, giving you back the prompt immediately. You can use the `docker ps` command to convince yourself the container is actually in running state.
+
+Assumed that a container has originally been started in detached mode, you can still attach to it afterwards by using the `docker attach` command:
+
+```
+$ docker run -d -p 9999:2000 --name copycat dev4cloud/copycat
+fda616caabda3a4cb4b4517cdd647b79d879b929cd9c5af98396151adb73df0f
+$ docker attach copycat
+Accepted incoming connection from: 172.17.0.1:35830
+...
+```
+
+In order to again detach from the container as soon as you're done, use the <kbd>Ctrl</kbd>+<kbd>p</kbd> + <kbd>Ctrl</kbd>+<kbd>q</kbd> escape sequence. However, be aware that detaching from a container requires it to have been started with the `-i` and `-t` flag set, since [escape sequences only work in TTY mode](https://groups.google.com/forum/#!msg/docker-user/nWXAnyLP9-M/kbv-FZpF4rUJ). <br/>
+As an alternative, making use of the `--sig-proxy` flag of the `docker attach` command is also an option. Then, you can detach from the container via <kbd>Ctrl</kbd>+<kbd>c</kbd> without killing the container process:
+
+```
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
+fda616caabda        dev4cloud/copycat   "./copycat"         2 minutes ago       Up 2 minutes        0.0.0.0:9999->2000/tcp   copycat
+$ docker attach --sig-proxy=false copycat
+Accepted incoming connection from: 172.17.0.1:36106
+...
+^C
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
+fda616caabda        dev4cloud/copycat   "./copycat"         3 minutes ago       Up 3 minutes        0.0.0.0:9999->2000/tcp   copycat
+```
 
 #### Cleaning up containers automatically
 
