@@ -51,7 +51,7 @@ $ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
 <br/>
 
 <a name="custom-container-names"></a>
-#### Assigning custom names to containers
+### Assigning custom names to containers
 
 First, let's see how we can assign custom names to containers so we can address them by means of meaningful designations. For that purpose, we use the `--name` option:
 
@@ -84,7 +84,7 @@ docker: Error response from daemon: Conflict. The container name "/nightcap" is 
 <br/>
 
 <a name="custom-commands"></a>
-#### Specifying a custom command   
+### Specifying a custom command   
 
 As already mentioned, users can provide an executable that shall be launched when a Docker container gets started. The user-defined command takes precedence over an image's default process.
 Paste the following Docker command into your terminal and give it a whirl:
@@ -101,7 +101,7 @@ In some cases, we'll have to use the `--entrypoint` option to specify the execut
 <br/>
 
 <a name="foreground-mode"></a>
-#### Foreground mode and interactive containers
+### Foreground mode and interactive containers
 
 By default, Docker starts containers in _foreground mode_, meaning that the current console is attached to STDOUT and STDERR if not specified otherwise. You can observe this behavior by running the following container:
 
@@ -135,7 +135,7 @@ Hello Docker!
 <br/>
 
 <a name="detached-mode"></a>
-#### Running containers in detached mode
+### Running containers in detached mode
 
 For many applications running in containers, there's no need to keep them attached to the terminal. For instance, think of a web server which does not require a permanent link to a console as it is perfectly suitable to move the process to the background and direct STDOUT and STDERR to appropriate log files. A container running in the background is also said to be in _detached mode_. The Docker dameon must explicitly be told to start a container in detached mode by means of the `--detach` (short `-d`) flag:
 
@@ -178,7 +178,7 @@ fda616caabda        dev4cloud/copycat   "./copycat"         3 minutes ago       
 <br/>
 
 <a name="cleanup"></a>
-#### Cleaning up containers automatically
+### Cleaning up containers automatically
 
 Another important aspect to notice is that as soon as a container exits, it is not automatically cleaned up which means its file system is still present on disk. While this is a reasonable default behavior that allows debugging and inspecting containers after they have terminated, it may not always be desired and also might congest your disk space over time. In case you're sure you no longer need a container once it has terminated, add the `--rm` flag to the `docker run` command to make the container being _garbage collected_ automatically:
 
@@ -188,7 +188,7 @@ $ docker run --rm --name copycat dev4cloud/copycat
 
 <br/>
 
-### The `docker ps` command
+## The `docker ps` command
 
 One of the most important aspects when running Docker containers is to keep an overview of all containers which are currently running. This is the purpose of the `docker ps` command, which returns a list of active containers by default. You can check it out yourself by launching the following commands in your terminal:
 
@@ -208,7 +208,16 @@ You see that `docker ps` supplies some basic information most of which should be
 $ docker ps [OPTIONS]
 ```
 
-Again, this Docker command allows its behavior to be tweaked by a range of options some of which we will meet later.
+<br/>
+
+### Printing active & stopped containers
+
+### Filtering for specific containers
+
+### Limit output to container IDs
+
+### Formatting output with Go templates
+
 
 <br/>
 
@@ -286,7 +295,6 @@ docker logs [OPTIONS] NAME|ID
 
 <br/>
 
-## More on `docker ps`
 
 ## Using `docker inspect` effectively
 
