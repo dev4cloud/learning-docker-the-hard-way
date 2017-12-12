@@ -4,29 +4,25 @@ This fourth part of our Docker guide gives an overview of some of the most frequ
 
 ## Outline
 
- - [Creating & starting containers with `docker run`](#docker-run)
+ - [Creating & starting containers with `docker run`](#section-docker-run)
    - [`docker run` fundamentals](#docker-run-fundamentals)
-   - [Assigning custom names to containers](#assigning-custom-names-to-containers)
-   - [Specifying a custom command](#specifying-a-custom-command)
-   - [Foreground mode and interactive containers](#foreground-mode-and-interactive-containers)
-   - [Running containers in detached mode](#running-containers-in-detached-mode)
-   - [Cleaning up containers automatically](#cleaning-up-containers-automatically)
- - [A closer look at `docker run`](#a-closer-look-at-docker-run)
- - [More on `docker ps`](#more-on-docker-ps)
- - [Using `docker inspect` effectively](#using-docker-inspect-effectively)
- - [Examining container logs](#examining-container-logs)
+   - [Assigning custom names to containers](#custom-container-names)
+   - [Specifying a custom command](#custom-commands)
+   - [Foreground mode and interactive containers](#foreground-mode)
+   - [Running containers in detached mode](#detached-mode)
+   - [Cleaning up containers automatically](#cleanup)
 
 <br/>
 
-<a name="docker-run"></a>
+<a name="section-docker-run"></a>
 ## Creating & starting containers with `docker run`
 
 At the beginning, we want to do a high-level journey through the most basic Docker commands. Most of the following commands come with several options to tweak their behavior in different ways. We will look at them more closely in the next paragraphs.
 
 <br/>
 
-
-### `docker run` fundamentals
+<a name="docker-run-fundamentals"></a>
+### Fundamentals
 
 The `docker run` command certainly belongs to the most important commands when it comes to managing the life cycle of a container. Its purpose is to start a process in a container, using an _image_ as a template:  
 
@@ -54,6 +50,7 @@ $ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
 
 <br/>
 
+<a name="custom-container-names"></a>
 #### Assigning custom names to containers
 
 First, let's see how we can assign custom names to containers so we can address them by means of meaningful designations. For that purpose, we use the `--name` option:
@@ -86,7 +83,7 @@ docker: Error response from daemon: Conflict. The container name "/nightcap" is 
 
 <br/>
 
-
+<a name="custom-commands"></a>
 #### Specifying a custom command   
 
 As already mentioned, users can provide an executable that shall be launched when a Docker container gets started. The user-defined command takes precedence over an image's default process.
@@ -103,7 +100,7 @@ In some cases, we'll have to use the `--entrypoint` option to specify the execut
 
 <br/>
 
-
+<a name="foreground-mode"></a>
 #### Foreground mode and interactive containers
 
 By default, Docker starts containers in _foreground mode_, meaning that the current console is attached to STDOUT and STDERR if not specified otherwise. You can observe this behavior by running the following container:
@@ -137,6 +134,7 @@ Hello Docker!
 
 <br/>
 
+<a name="detached-mode"></a>
 #### Running containers in detached mode
 
 For many applications running in containers, there's no need to keep them attached to the terminal. For instance, think of a web server which does not require a permanent link to a console as it is perfectly suitable to move the process to the background and direct STDOUT and STDERR to appropriate log files. A container running in the background is also said to be in _detached mode_. The Docker dameon must explicitly be told to start a container in detached mode by means of the `--detach` (short `-d`) flag:
@@ -179,7 +177,7 @@ fda616caabda        dev4cloud/copycat   "./copycat"         3 minutes ago       
 
 <br/>
 
-
+<a name="cleanup"></a>
 #### Cleaning up containers automatically
 
 Another important aspect to notice is that as soon as a container exits, it is not automatically cleaned up which means its file system is still present on disk. While this is a reasonable default behavior that allows debugging and inspecting containers after they have terminated, it may not always be desired and also might congest your disk space over time. In case you're sure you no longer need a container once it has terminated, add the `--rm` flag to the `docker run` command to make the container being _garbage collected_ automatically:
