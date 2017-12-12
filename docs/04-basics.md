@@ -212,9 +212,37 @@ $ docker ps [OPTIONS]
 
 ### Printing active & stopped containers
 
+By default, `docker ps` only shows containers which are currently running. In order to show both active containers and also containers which have exited but are not removed yet, use the `--all` (short: `-a`) flag:
+
+```
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
+81b61e021917        dev4cloud/copycat   "./copycat"         5 hours ago         Up 5 hours          0.0.0.0:9999->2000/tcp   copycat
+$ docker ps -a
+CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS                     PORTS                    NAMES
+5956a24ab62a        dev4cloud/hello-docker   "echo 'Hello Docker!'"   4 seconds ago       Exited (0) 3 seconds ago                            tender_easley
+81b61e021917        dev4cloud/copycat        "./copycat"              5 hours ago         Up 5 hours                 0.0.0.0:9999->2000/tcp   copycat
+```
+
+<br/>
+
 ### Filtering for specific containers
 
+The `--filter` (short: `-f`) flag gives us the opportunity to filter the list of containers by means of key-value pairs. For instance, we can create a query that searches for a container with a certain name:
+
+```
+$ docker ps -f name=copycat
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
+81b61e021917        dev4cloud/copycat   "./copycat"         5 hours ago         Up 5 hours          0.0.0.0:9999->2000/tcp   copycat
+```
+
+A detailed list of valid filtering keys is available at the [docs](https://docs.docker.com/engine/reference/commandline/ps/#filtering).
+
+<br/>
+
 ### Limit output to container IDs
+
+<br/>
 
 ### Formatting output with Go templates
 
