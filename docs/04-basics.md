@@ -4,7 +4,7 @@ This fourth part of our Docker guide gives an overview of some of the most frequ
 
 ## Outline
 
- - [Creating & starting containers with `docker run`](#creating-&-starting-containers-with-docker-run)
+ - [Creating & starting containers with `docker run`](#docker-run)
    - [`docker run` fundamentals](#docker-run-fundamentals)
    - [Assigning custom names to containers](#assigning-custom-names-to-containers)
    - [Specifying a custom command](#specifying-a-custom-command)
@@ -19,6 +19,7 @@ This fourth part of our Docker guide gives an overview of some of the most frequ
 <br/>
 
 ## Creating & starting containers with `docker run`
+<a name="docker-run"></a>
 
 At the beginning, we want to do a high-level journey through the most basic Docker commands. Most of the following commands come with several options to tweak their behavior in different ways. We will look at them more closely in the next paragraphs.
 
