@@ -5,12 +5,24 @@ This fourth part of our Docker guide gives an overview of some of the most frequ
 ## Outline
 
  - [Creating & starting containers with `docker run`](#section-docker-run)
-   - [`docker run` fundamentals](#docker-run-fundamentals)
+   - [Fundamentals](#docker-run-fundamentals)
    - [Assigning custom names to containers](#custom-container-names)
    - [Specifying a custom command](#custom-commands)
    - [Foreground mode and interactive containers](#foreground-mode)
    - [Running containers in detached mode](#detached-mode)
    - [Cleaning up containers automatically](#cleanup)
+ - [Starting, stopping & removing existing containers](#section-start-stop-remove)
+   - [Fundamentals](#start-stop-remove-fundamentals)
+   - [Stopping an active Docker container](#docker-stop)
+   - [Starting a stopped container](#docker-start)
+   - [Removing an obsolete container](#docker-rm)
+ - [Listing containers with `docker ps`](#section-docker-ps)
+   - [Fundamentals](#docker-ps-fundamentals)
+   - [Printing active & stopped containers](#active-and-stopped)
+   - [Filtering `docker ps` output](#container-filtering)
+   - [Only show container IDs](#container-ids)
+   - [Formatting output with Go templates](#docker-ps-formatting)
+
 
 <br/>
 
@@ -188,7 +200,29 @@ $ docker run --rm --name copycat dev4cloud/copycat
 
 <br/>
 
+<a name="section-start-stop-remove"></a>
+## Starting, stopping & removing existing containers
+
+<a name="start-stop-remove-fundamentals"></a>
+### Fundamentals
+
+<a name="docker-stop"></a>
+### Stopping an active container
+
+<a name="docker-start"></a>
+### Starting a stopped container
+
+<a name="docker-rm"></a>
+### Removing an obsolete container
+
+
+<br/>
+
+<a name="section-docker-ps"></a>
 ## The `docker ps` command
+
+<a name="docker-ps-fundamentals"></a>
+### Fundamentals
 
 One of the most important aspects when running Docker containers is to keep an overview of all containers which are currently running. This is the purpose of the `docker ps` command, which returns a list of active containers by default. You can check it out yourself by launching the following commands in your terminal:
 
@@ -210,6 +244,7 @@ $ docker ps [OPTIONS]
 
 <br/>
 
+<a name="active-and-stopped"></a>
 ### Printing active & stopped containers
 
 By default, `docker ps` only shows containers which are currently running. In order to show both active containers and also containers which have exited but are not removed yet, use the `--all` (short: `-a`) flag:
@@ -226,7 +261,8 @@ CONTAINER ID        IMAGE                    COMMAND                  CREATED   
 
 <br/>
 
-### Filtering for specific containers
+<a name="container-filtering"></a>
+### Filtering `docker ps` output
 
 The `--filter` (short: `-f`) flag gives us the opportunity to filter the list of containers by means of key-value pairs. For instance, we can create a query that searches for a container with a certain name:
 
@@ -240,14 +276,18 @@ A detailed list of valid filtering keys is available at the [docs](https://docs.
 
 <br/>
 
-### Limit output to container IDs
+<a name="container-ids"></a>
+### Only show container IDs
 
 <br/>
 
+<a name="docker-ps-formatting"></a>
 ### Formatting output with Go templates
 
 
 <br/>
+
+
 
 ### The `docker inspect` command
 
