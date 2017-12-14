@@ -372,11 +372,52 @@ A detailed list of valid filtering keys is available at the [docs](https://docs.
 <a name="container-ids"></a>
 ### Only show container IDs
 
+Sometimes it can be helpful to only list the IDs of containers and ignore other information. The `--quiet` (short: `-q`) flag serves that purpose:
+
+```
+$ docker ps -q
+b370247ff648
+```
+
+An exemplary scenario where this is very helpful is when you want to stop and/or delete all running containers on your system:
+
+```
+$ docker stop $(docker ps -q)
+b370247ff648
+```
+
+The command above fetches the IDs of all running containers in a subshell and then passes them to the `docker stop` command.  
+
 <br/>
 
 <a name="docker-ps-formatting"></a>
 ### Formatting output with Go templates
 
+Docker's standard formatting for the `docker ps` output is very extensive and frequently only a subset of the properties of containers is actually needed. Docker offers us the possibility of customizing this output according to our needs by means of _Go templates_. Go templates consist of placeholders which represent a certain container attribute:
+
+```
+$ docker ps --format "{{.Names}}\t{{.Image}}\t{{.Size}}"
+copycat    dev4cloud/copycat    0B (virtual 2.72MB)
+```
+
+Note that you need to specify the `table` directive within the template if you want the column heades to be printed:
+
+```
+$ docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Size}}"
+NAMES               IMAGE               SIZE
+copycat             dev4cloud/copycat   0B (virtual 2.72MB)
+```
+
+In order to make your custom `docker ps` formatting permanent and avoid having the specify it via the `--format` flag on every invocation, go to `~/.docker/config.json` and add your Go template pattern to the Docker CLI configuration:
+
+```
+$ cat ~/.docker/config.json
+{
+  "psFormat": "table {{.Names}}\t{{.Image}}\t{{.Size}}"
+}
+```
+
+For a comprehensive list of valid template placeholders head over to the [documentation](https://docs.docker.com/engine/reference/commandline/ps/#formatting).
 
 <br/>
 
