@@ -139,7 +139,7 @@ hi
 If we'd like to go one step further and run an interactive shell in a container, we additionally have to allocate a tty or [pseudo-terminal (tty)](https://en.wikipedia.org/wiki/Pseudoterminal) and attach it to our container. Docker can be instructed to do that for us via the `--tty` (short: `-t`) flag. Accordingly, the complete command to launch a containerized shell looks like this:
 
 ```
-$ docker run -it alpine sh
+$ docker run -it --name shell dev4cloud/shell
 / # echo "Hello Docker!"
 Hello Docker!
 ```
@@ -206,15 +206,99 @@ $ docker run --rm --name copycat dev4cloud/copycat
 <a name="start-stop-remove-fundamentals"></a>
 ### Fundamentals
 
+Besides launching containers with `docker run`, we also need commands to stop them once they're no longer required. As their filesystem is kept on disk even if a container terminates (assumed that is has __NOT__ been intended for automatic cleanup with the `--rm` flag), stopped containers can be restarted at a later point in time. Otherwise, if we're sure that a stopped container will never be needed in the future, we can permanently delete it from disk.        
+
 <a name="docker-stop"></a>
 ### Stopping an active container
+
+Use the `docker stop` command to stop an active Docker container. If the command returns the container ID or name, the execution has been successful.
+
+```
+$ docker stop copycat
+copycat
+```
+
+The command's general structure reveals that more than one container can be scheduled for termination within a single command execution:
+
+```
+docker stop [OPTIONS] NAME|ID [NAME|ID ...]
+```
+
+<br/>
 
 <a name="docker-start"></a>
 ### Starting a stopped container
 
+If a container that has been stopped shall be started again, use the `docker start` command:
+
+```
+$ docker start copycat
+```
+
+The command's formal structure looks as follows:
+
+```
+docker start [OPTIONS] NAME|ID [NAME|ID ...]
+```
+
+Like `docker stop`, this command takes more than one container name or ID as an argument, i.e. multiple containers can be started with a single command.
+
+If the stopped container had a tty allocated and you want to start it as an interactive container again, add the `--interactive` (short: `-i`)
+flag to attach to the container's STDIN again:
+
+```
+$ docker start -i shell
+/ #
+```
+
+The `docker start` command launches containers in the background by default. If you want to restart a container in foreground mode use the `--attach` (short: `-a`) flag which connects to the container's STDIN and STDERR and enables signal forwarding:
+
+```
+$ docker start -a copycat
+Copycat listening at [::]:2000 ...
+```
+
+However, note that you can only detach your terminal from the container without stopping it again if it has initially been started with the `-i` and `-t` flags set. Additionally, you must add the `-i` flag to the `docker start` command for this to work:
+
+```
+$ docker start -i -a copycat
+Copycat listening at [::]:2000 ...
+^p^q
+read escape sequence
+```
+
+In most situations, simply starting the container in the background and attaching to it via the [`docker attach` command](#detached-mode) might be the easiest way.
+
+<br/>
+
 <a name="docker-rm"></a>
 ### Removing an obsolete container
 
+If a container and its filesystem are no longer used, it is always a good idea to delete them in order to free up some disk space. To remove a container permanently, pass it to the `docker rm` command:
+
+```
+$ docker rm copycat
+copycat
+```
+
+Like the previous commands, the `docker rm` command accepts multiple containers as an argument:
+
+```
+docker rm [OPTIONS] NAME|ID [NAME|ID ...]
+```
+
+The execution has been successful if the Docker daemon returns the container name or ID back to you. Note that a container that shall be removed must be in stopped state. Otherwise, the Docker daemon responds with an error message:
+
+```
+$ docker rm copycat
+Error response from daemon: You cannot remove a running container fda616caabda3a4cb4b4517cdd647b79d879b929cd9c5af98396151adb73df0f. Stop the container before attempting removal or force remove
+$ docker stop copycat
+copycat
+$ docker rm copycat
+copycat
+```
+
+Again, the Docker daemon returns the container name if the removal was successful.  
 
 <br/>
 
