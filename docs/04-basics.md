@@ -208,6 +208,8 @@ $ docker run --rm --name copycat dev4cloud/copycat
 
 Besides launching containers with `docker run`, we also need commands to stop them once they're no longer required. As their filesystem is kept on disk even if a container terminates (assumed that is has __NOT__ been intended for automatic cleanup with the `--rm` flag), stopped containers can be restarted at a later point in time. Otherwise, if we're sure that a stopped container will never be needed in the future, we can permanently delete it from disk.        
 
+<br/>
+
 <a name="docker-stop"></a>
 ### Stopping an active container
 
@@ -227,7 +229,7 @@ docker stop [OPTIONS] NAME|ID [NAME|ID ...]
 <br/>
 
 <a name="docker-start"></a>
-### Starting a stopped container
+### Starting an inactive container
 
 If a container that has been stopped shall be started again, use the `docker start` command:
 
@@ -298,7 +300,14 @@ $ docker rm copycat
 copycat
 ```
 
-Again, the Docker daemon returns the container name if the removal was successful.  
+Again, the Docker daemon returns the container name if the removal was successful. As having to use two commands (`stop` and `rm`) might be tedious, you can indeed force running containers to be stopped and removed with a single command:
+
+```
+$ docker rm -f copycat
+copycat
+```
+
+The `--force` (short: `-f`) flag instructs the Docker daemon to forcfully kill the container process by sending it a _SIGKILL_ signal.
 
 <br/>
 
