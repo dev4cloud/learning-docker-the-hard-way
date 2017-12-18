@@ -499,16 +499,20 @@ $ docker inspect -f '{{range $net, $conf := .NetworkSettings.Networks}} {{$net}}
 
 <br/>
 
-### The `docker logs` command
 
-The `docker logs` command allows to access the logs of e.g. a containerized application that writes its traces to STDOUT and STDERR. For instance, this might be useful for debugging error conditions.  
+## The `docker logs` command
+
+### Fundamentals
+
+The `docker logs` command shows the logs of a containerized application that writes to STDOUT and/or STDERR. For instance, this can be very helpful in case of error conditions as this command enables users to access a container's output easily and quickly.  
 
 ```
-$ docker run dev4cloud/hello-docker
+$ docker run -d -p 9999:2000 --name copycat dev4cloud/copycat
+1a84e0b4c673d75938fd6884f9666231ba80602ce05c2f777353b42bd2900bf4
+$ docker logs copycat
+Copycat listening at [::]:2000 ...
+Accepted incoming connection from: 172.17.0.1:44854
 ...
-# Run from another terminal; For container ID see 'docker ps':
-$ docker logs 246999
-Hello Docker!
 ```
 
 The command's general structure looks like this:
@@ -519,13 +523,41 @@ docker logs [OPTIONS] NAME|ID
 
  - __NAME__: Randomly generated or user-defined unique name of container (see above).
 
- - __ID__: UUID of a container (see above).
+ - __ID__: Ccontainer's UUID (see above).
 
  - __[OPTIONS]__ (optional): Options to further adjust the commands behavior.  
 
 
 <br/>
 
+### Tracking container logs
+
+In order to understand the exact behavior of an application running inside a container, in can sometimes help to check the logs in real time instead of examining them after a crash or graceful termination. For that purpose, the `docker logs` command provides the `--follow` (short: `-f`) flag, which waits for incoming log records and displays them as they arrive:
+
+```
+$ docker logs -f copycat
+Copycat listening at [::]:2000 ...
+Accepted incoming connection from: 172.17.0.1:44854
+Accepted incoming connection from: 172.17.0.1:45124
+Accepted incoming connection from: 172.17.0.1:45128
+Accepted incoming connection from: 172.17.0.1:45132
+Accepted incoming connection from: 172.17.0.1:45136
+Accepted incoming connection from: 172.17.0.1:45140
+Accepted incoming connection from: 172.17.0.1:45144
+...
+```
+
+<br/>
+
+### Controlling the number of logs displayed
+
+Depending on the containerized process, its uptime and logging behavior, it might be hard to keep an overview of the logs returned by `docker logs` as the command simply returns everything that has been captured since the process has been started. To bypass this problem, the `docker logs` command allows us to specify the number of log entries to display, starting with the most recent one. In other words, the `--tail` flag makes the command to only show the last _n_ lines. The parameter _n_ is optional and defaults to _all_:
+
+```
+$ docker logs --tail 3 copycat
+Accepted incoming connection from: 172.17.0.1:45136
+Accepted incoming connection from: 172.17.0.1:45140
+Accepted incoming connection from: 172.17.0.1:45144
+```
 
 
-## Examining container logs
