@@ -24,6 +24,11 @@ This fourth part of our Docker guide gives an overview of some of the most frequ
    - [Formatting output with Go templates](#docker-ps-formatting)
  - [Examining containers with `docker inspect`](#section-docker-inspect)
    - [Fundamentals](#docker-inspect-fundamentals)
+   - [Formatting output](#docker-inspect-formatting)
+ - [Viewing container logs with `docker logs`](#section-docker-logs)
+   - [Fundamentals](#docker-logs-fundamentals)
+   - [Tracking container logs](#docker-logs-follow)
+   - [Controlling the number of logs displayed](#docker-logs-tail)
 
 
 <br/>
@@ -424,9 +429,10 @@ For a comprehensive list of valid template placeholders head over to the [docume
 <br/>
 
 
-
+<a name="section-docker-inspect"></a>
 ## The `docker inspect` command
 
+<a name="docker-inspect-fundamentals"></a>
 ### Fundamentals
 
 While the `docker ps` command gives us a high-level overview of running containers, we can use the `docker inspect` command to get more detailed insights into a specific container. While we solely use it to examine containers in this section, the `docker inspect` command can also be used to analyse other Docker objects like images. Applying the command to a container yields a very detailed, JSON formatted output with much information about it:
@@ -473,6 +479,7 @@ Note that more than one container can be passed to the `docker inspect` command,
 
 <br/>
 
+<a name="docker-inspect-formatting"></a>
 ### Formatting output
 
 You already saw that the output of the `docker inspect` command is slightly extensive. In most cases, you'll probably be interested in only some specific container metadata, e.g. its IP address or hostname. In order to filter the JSON output for the interesting peace of information, one approach is to use `grep`:
@@ -500,8 +507,10 @@ $ docker inspect -f '{{range $net, $conf := .NetworkSettings.Networks}} {{$net}}
 <br/>
 
 
-## The `docker logs` command
+<a name="section-docker-logs"></a>
+## Viewing container logs with `docker logs`
 
+<a name="docker-logs-fundamentals"></a>
 ### Fundamentals
 
 The `docker logs` command shows the logs of a containerized application that writes to STDOUT and/or STDERR. For instance, this can be very helpful in case of error conditions as this command enables users to access a container's output easily and quickly.  
@@ -530,6 +539,7 @@ docker logs [OPTIONS] NAME|ID
 
 <br/>
 
+<a name="docker-logs-follow"></a>
 ### Tracking container logs
 
 In order to understand the exact behavior of an application running inside a container, in can sometimes help to check the logs in real time instead of examining them after a crash or graceful termination. For that purpose, the `docker logs` command provides the `--follow` (short: `-f`) flag, which waits for incoming log records and displays them as they arrive:
@@ -549,6 +559,7 @@ Accepted incoming connection from: 172.17.0.1:45144
 
 <br/>
 
+<a name="docker-logs-tail"></a>
 ### Controlling the number of logs displayed
 
 Depending on the containerized process, its uptime and logging behavior, it might be hard to keep an overview of the logs returned by `docker logs` as the command simply returns everything that has been captured since the process has been started. To bypass this problem, the `docker logs` command allows us to specify the number of log entries to display, starting with the most recent one. In other words, the `--tail` flag makes the command to only show the last _n_ lines. The parameter _n_ is optional and defaults to _all_:
