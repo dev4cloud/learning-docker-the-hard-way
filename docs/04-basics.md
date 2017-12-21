@@ -8,6 +8,7 @@ This fourth part of our Docker guide gives an overview of some of the most frequ
    - [Fundamentals](#docker-run-fundamentals)
    - [Assigning custom names to containers](#custom-container-names)
    - [Specifying a custom command](#custom-commands)
+   - [Mapping container ports to the host](#port-mapping)
    - [Foreground mode and interactive containers](#foreground-mode)
    - [Running containers in detached mode](#detached-mode)
    - [Cleaning up containers automatically](#cleanup)
@@ -109,6 +110,22 @@ Hello World!
 Here, we instruct our sample image to print "Hello World!" instead of "Hello Docker!" which is its standard behavior if nothing else is specified.
 
 In some cases, we'll have to use the `--entrypoint` option to specify the executable that shall be launched in the container. The section about Dockerfiles will examine this further.    
+
+<br/>
+
+<a name="port-mapping"></a>
+### Mapping container ports to the host
+
+If nothing else is specified, Docker containers connect to the dedicated `docker0` network interface and get assigned a corresponding IP address (e.g. 172.17.0.2) on startup. What that means is that for instance a containerized web server which binds to port 80 can only be reached via the `docker0` interface. However, we can use _port mappings_ to make one or more container ports accessible e.g. on the hosts loopback interface (127.0.0.1). The subsequent command starts a simple TCP server which can receive messages and echoes them back:
+
+```
+$ docker run --name copycat -p 9999:2000 dev4cloud/copycat
+Copycat listening at [::]:2000 ...
+# Run from another terminal
+$ echo "Hi" | nc localhost 9999
+```    
+
+The most important thing to note here is that we use the `--publish` (short: `-p`) option in order to make our server, which binds to port 2000 __inside__ the  container available at port 9999 on localhost. If no host port is specified, a random port is allocated and mapped to the container port. During our tour, we'll take a much closer look at why port mapping is necessary and how networking in the context of Docker containers is implemented. For now its enough to keep in mind that making services running in containers accessible to the outside world requires one or more ports to be exposed.   
 
 <br/>
 
