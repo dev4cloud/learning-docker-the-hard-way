@@ -20,7 +20,7 @@ This fourth part of our Docker guide gives an overview of some of the most frequ
    - [Fundamentals](#docker-ps-fundamentals)
    - [Printing active & stopped containers](#active-and-stopped)
    - [Filtering `docker ps` output](#container-filtering)
-   - [Only show container IDs](#container-ids)
+   - [Show container IDs only](#container-ids)
    - [Formatting output with Go templates](#docker-ps-formatting)
  - [Examining containers with `docker inspect`](#section-docker-inspect)
    - [Fundamentals](#docker-inspect-fundamentals)
@@ -377,7 +377,7 @@ A detailed list of valid filtering keys is available at the [docs](https://docs.
 <br/>
 
 <a name="container-ids"></a>
-### Only show container IDs
+### Show container IDs only
 
 Sometimes it can be helpful to only list the IDs of containers and ignore other information. The `--quiet` (short: `-q`) flag serves that purpose:
 
