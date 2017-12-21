@@ -130,6 +130,7 @@ $ docker run --name copycat -p 9999:2000 dev4cloud/copycat
 Copycat listening at [::]:2000 ...
 # Run from another terminal
 $ echo "Hi" | nc localhost 9999
+Hi
 ```    
 
 The most important thing to note here is that we use the `--publish` (short: `-p`) option in order to make our server, which binds to port 2000 __inside__ the  container available at port 9999 on localhost. If no host port is specified, a random port is allocated and mapped to the container port. During our tour, we'll take a much closer look at why port mapping is necessary and how networking in the context of Docker containers is implemented. For now its enough to keep in mind that making services running in containers accessible to the outside world requires one or more ports to be exposed.   
@@ -517,7 +518,7 @@ Hostname: 963a8ca447c1
 In the majority of cases, extracting information from the output JSON is as easy as following its structure and picking out the field(s) of interest. In the case of arrays or maps where you have an arbitrary number of elements, you can loop over their entries to produce a well-formatted text output:
 
 ```
-$ docker inspect -f '{{range $net, $conf := .NetworkSettings.Networks}} {{$net}} -> {{.IPAddress}} {{end}}' copycat 
+$ docker inspect -f '{{range $net, $conf := .NetworkSettings.Networks}} {{$net}} -> {{.IPAddress}} {{end}}' copycat
  bridge -> 172.17.0.2    
 ```
 
@@ -587,5 +588,3 @@ Accepted incoming connection from: 172.17.0.1:45136
 Accepted incoming connection from: 172.17.0.1:45140
 Accepted incoming connection from: 172.17.0.1:45144
 ```
-
-
