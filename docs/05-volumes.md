@@ -28,6 +28,20 @@ Essentially, Docker offers two techniques, namley _bind mounts_ and _volumes_, t
 <a name="bind-mounts"></a>
 ### Bind mount essentials
 
+What we usually understand by _mounting_ is integrating a filesystem located on a storage device (hard disk or USB drive) into our host system's filesystem hierarchy. The place within the host filesystem where a storage device is mounted is referred to as _mount point_.
+
+Rather than a filesystem placed on an external device, a _bind mount_ mounts a local path to just another path in the same filesystem. On your Linux host or VM, you can create a bind mount by yourself with just a few commands:   
+
+```
+$ mkdir -p /tmp/src /tmp/target
+$ sudo mount -o bind /tmp/src/ /tmp/target/
+$ touch /tmp/target/hello
+$ ls /tmp/src/
+hello
+```  
+
+In the listing above, we create a `/tmp/src/` directory and mount it under the `/tmp/target/` directory. As you can see, changes applied to one of these folders are immediately reflected on the other one.
+
 <br/>
 
 <a name="docker-volumes"></a>
